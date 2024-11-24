@@ -56,7 +56,7 @@ REST_AUTH_SERIALIZERS = {
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^63^7rqvwk8ql^awn0ca_)q(6*6$)j(^fhbyjgm%-_)9q0eguy'
+SECRET_KEY = 'ELEPhant'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
@@ -85,13 +85,12 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
-    'corsheaders',
 
-    'comments',
-    'followers',
-    'likes',
-    'posts',
     'profiles',
+    'posts',
+    'comments',
+    'likes',
+    'followers',
 ]
 
 SITE_ID = 1
@@ -106,7 +105,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',  # Required by allauth
-    'allauth.account.middleware.AccountMiddleware',
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
@@ -184,6 +182,8 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
