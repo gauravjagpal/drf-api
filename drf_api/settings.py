@@ -63,7 +63,7 @@ DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
 'localhost',
-'.herokuapp.com',
+'react-test-app-gj-0a2d12296e7e.herokuapp.com',
 '8000-gauravjagpal-drfapi-1h47xii4ah2.ws-eu116.gitpod.io'
 ]
 
