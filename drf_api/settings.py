@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-from datetime import timedelta
 import re
 import dj_database_url
 
@@ -49,20 +48,6 @@ JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
-if (
-    'ACCESS_TOKEN_LIFETIME' in os.environ and
-    'REFRESH_TOKEN_LIFETIME' in os.environ
-):
-    SIMPLE_JWT = {
-        'ACCESS_TOKEN_LIFETIME': timedelta(
-            seconds=int(os.environ.get('ACCESS_TOKEN_LIFETIME'))
-        ),
-        'REFRESH_TOKEN_LIFETIME': timedelta(
-            seconds=int(os.environ.get('REFRESH_TOKEN_LIFETIME'))
-        ),
-    }
-
-
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER' : 'drf_api.serializers.CurrentUserSerializer'
 }
@@ -84,25 +69,15 @@ os.environ.get('ALLOWED_HOST'),
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
-        origin
-        for origin in [
             os.environ.get("CLIENT_ORIGIN"),
-            os.environ.get("STEROID_ORIGIN"),
-            os.environ.get("LOCAL_ORIGIN"),
         ]
-        if origin
-    ]
-else:
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https://.*\.gitpod\.io$",
-    ]
-
+    
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(
-        r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV'), re.IGNORECASE
+        r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
     ).group(0)
     CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"{extracted_url}(eu|us)\d+[a-z]*\.gitpod\.io$",
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
     ]
 
 CORS_ALLOW_CREDENTIALS = True
